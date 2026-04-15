@@ -1,0 +1,2211 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Andrea & Filip — 15. 7. 2026</title>
+  <meta
+    name="description"
+    content="Svatební web Andrey a Filipa — 15. července 2026, Zámeček Dubí"
+  />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --bg: #faf8f5;
+      --surface: #f4eee6;
+      --surface-2: #efe6db;
+      --card: #fbfaf8;
+      --text: #2f2926;
+      --muted: #8b8078;
+      --line: #ddd1c4;
+      --accent: #e3c4c0;
+      --dark: #221d1a;
+      --white: #ffffff;
+      --serif: "Cormorant Garamond", Georgia, serif;
+      --sans: "Inter", system-ui, sans-serif;
+      --shadow: 0 12px 40px rgba(34, 29, 26, 0.08);
+      --max: 1180px;
+      --section-gap: clamp(64px, 8vw, 104px);
+      --nav-h: 72px;
+      --radius: 22px;
+      --transition: 220ms ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    .container {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: var(--section-gap) 0;
+    }
+
+    .section--surface {
+      background: var(--surface);
+    }
+
+    .section--surface-2 {
+      background: var(--surface-2);
+    }
+
+    .section--dark {
+      background: var(--dark);
+      color: var(--white);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 14px;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--muted);
+    }
+
+    .section--dark .eyebrow {
+      color: rgba(255, 255, 255, 0.66);
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--serif);
+      font-weight: 400;
+      line-height: 1.05;
+    }
+
+    h2 {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      letter-spacing: -0.02em;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 22px;
+      border: 1px solid currentColor;
+      background: transparent;
+      color: inherit;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.74rem;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn--light {
+      color: var(--white);
+      border-color: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .btn--light:hover {
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .btn--dark {
+      color: var(--text);
+      border-color: var(--text);
+    }
+
+    .btn--dark:hover {
+      background: var(--text);
+      color: var(--bg);
+    }
+
+    .btn--solid {
+      color: var(--dark);
+      background: var(--white);
+      border-color: var(--white);
+    }
+
+    .btn--solid:hover {
+      background: transparent;
+      color: var(--white);
+    }
+
+    .icon {
+      width: 22px;
+      height: 22px;
+      color: #4a4039;
+      display: inline-block;
+      flex: 0 0 auto;
+    }
+
+    .icon svg {
+      width: 100%;
+      height: 100%;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .icon--fill svg .fill {
+      fill: currentColor;
+      stroke: none;
+    }
+
+    /* NAV */
+    .nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: var(--nav-h);
+      z-index: 1000;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background: rgba(250, 248, 245, 0.88);
+      border-bottom: 1px solid rgba(221, 209, 196, 0.6);
+    }
+
+    .nav__inner {
+      width: min(calc(100% - 32px), var(--max));
+      height: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .nav__brand {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.6rem;
+      white-space: nowrap;
+    }
+
+    .nav__links {
+      display: none;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav__links a {
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      transition: var(--transition);
+    }
+
+    .nav__links a:hover,
+    .nav__links a.is-active {
+      color: var(--text);
+    }
+
+    .nav__right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lang-switch {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .lang-btn {
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      padding: 4px 6px;
+      transition: var(--transition);
+    }
+
+    .lang-btn.is-active {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .hamburger {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(47, 41, 38, 0.14);
+      background: transparent;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 18px;
+      height: 1px;
+      background: var(--text);
+      position: relative;
+    }
+
+    .hamburger span::before,
+    .hamburger span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 18px;
+      height: 1px;
+      background: var(--text);
+    }
+
+    .hamburger span::before {
+      top: -6px;
+    }
+
+    .hamburger span::after {
+      top: 6px;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: var(--nav-h);
+      left: 0;
+      right: 0;
+      background: rgba(250, 248, 245, 0.98);
+      border-bottom: 1px solid rgba(221, 209, 196, 0.7);
+      display: none;
+      z-index: 999;
+    }
+
+    .mobile-menu.is-open {
+      display: block;
+    }
+
+    .mobile-menu__inner {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+      padding: 18px 0 22px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .mobile-menu a {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text);
+    }
+
+    @media (min-width: 992px) {
+      .nav__links {
+        display: flex;
+      }
+
+      .hamburger {
+        display: none;
+      }
+
+      .mobile-menu {
+        display: none !important;
+      }
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: end;
+      padding-top: var(--nav-h);
+      overflow: hidden;
+    }
+
+    .hero__media,
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+    }
+
+    .hero__media img {
+      object-position: center 24%;
+    }
+
+    .hero__overlay {
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(25, 20, 18, 0.04) 0%,
+          rgba(25, 20, 18, 0.10) 42%,
+          rgba(25, 20, 18, 0.55) 100%
+        );
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+      padding: clamp(40px, 8vw, 88px) 0;
+      color: var(--white);
+    }
+
+    .hero__date {
+      display: inline-block;
+      margin-bottom: 14px;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      opacity: 0.75;
+    }
+
+    .hero__names {
+      font-size: clamp(3.5rem, 11vw, 7.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+      max-width: 8ch;
+    }
+
+    .hero__subtitle {
+      font-family: var(--serif);
+      font-size: clamp(1.4rem, 3.2vw, 2rem);
+      font-style: italic;
+      margin-bottom: 6px;
+      opacity: 0.92;
+    }
+
+    .hero__place {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      opacity: 0.72;
+      margin-bottom: 28px;
+    }
+
+    .hero__scroll {
+      position: absolute;
+      right: 20px;
+      bottom: 30px;
+      color: rgba(255,255,255,0.52);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.66rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      z-index: 2;
+    }
+
+    .hero__scroll-line {
+      width: 1px;
+      height: 44px;
+      background: rgba(255,255,255,0.26);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero__scroll-line::after {
+      content: "";
+      position: absolute;
+      inset: -100% 0 auto;
+      height: 100%;
+      background: rgba(255,255,255,0.7);
+      animation: lineMove 2s infinite;
+    }
+
+    @keyframes lineMove {
+      to {
+        inset: 140% 0 auto;
+      }
+    }
+
+    /* STORY */
+    .story {
+      display: grid;
+      gap: 34px;
+    }
+
+    .story__content p + p {
+      margin-top: 18px;
+    }
+
+    .story__quote {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(1.5rem, 3vw, 2.3rem);
+      line-height: 1.25;
+      padding-left: 18px;
+      border-left: 2px solid var(--accent);
+      margin: 26px 0 30px;
+      max-width: 20ch;
+    }
+
+    .story__media {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .story__main {
+      grid-column: 1 / -1;
+      height: 380px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .story__small {
+      height: 220px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    @media (min-width: 900px) {
+      .story {
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 56px;
+        align-items: start;
+      }
+
+      .story__main {
+        height: 420px;
+      }
+
+      .story__small {
+        height: 240px;
+      }
+    }
+
+    /* IMAGE BREAK */
+    .break {
+      position: relative;
+      height: clamp(280px, 48vw, 520px);
+      overflow: hidden;
+    }
+
+    .break__overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(27, 22, 20, 0.28);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 24px;
+    }
+
+    .break__text {
+      font-family: var(--serif);
+      font-style: italic;
+      color: var(--white);
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    /* INFO GRID */
+    .info-grid {
+      display: grid;
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      margin-top: 26px;
+    }
+
+    .info-card {
+      background: var(--card);
+      padding: 24px 22px;
+      min-height: 176px;
+    }
+
+    .info-card__icon {
+      margin-bottom: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .info-card__label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .info-card__title {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      line-height: 1.05;
+      margin-bottom: 8px;
+    }
+
+    .info-card__text {
+      color: var(--muted);
+      font-size: 0.94rem;
+      line-height: 1.65;
+    }
+
+    @media (min-width: 680px) {
+      .info-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (min-width: 1100px) {
+      .info-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    /* LOCATIONS */
+    .locations {
+      display: grid;
+      gap: 24px;
+      margin-top: 26px;
+    }
+
+    .location-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .location-card__map,
+    .location-card__image {
+      height: 280px;
+      background: var(--surface);
+    }
+
+    .location-card__map iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .location-card__body {
+      padding: 24px;
+    }
+
+    .location-card__step {
+      display: inline-block;
+      margin-bottom: 8px;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+    }
+
+    .location-card__title {
+      font-size: clamp(2rem, 4vw, 2.6rem);
+      margin-bottom: 8px;
+    }
+
+    .location-card__address {
+      color: var(--muted);
+      margin-bottom: 14px;
+      font-size: 0.95rem;
+    }
+
+    .location-card__desc {
+      margin-bottom: 22px;
+      max-width: 42ch;
+    }
+
+    @media (min-width: 900px) {
+      .locations {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* TIMELINE */
+    .timeline {
+      position: relative;
+      max-width: 760px;
+      margin: 26px auto 0;
+      padding-left: 8px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 84px;
+      width: 1px;
+      background: var(--line);
+    }
+
+    .timeline__item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 0 28px;
+      padding-bottom: 22px;
+    }
+
+    .timeline__time {
+      text-align: right;
+      font-size: 0.95rem;
+      color: var(--muted);
+      padding-top: 1px;
+    }
+
+    .timeline__content {
+      position: relative;
+      padding-left: 16px;
+    }
+
+    .timeline__dot {
+      position: absolute;
+      left: -18px;
+      top: 10px;
+      width: 11px;
+      height: 11px;
+      border-radius: 999px;
+      border: 1.5px solid #bcae9f;
+      background: var(--bg);
+    }
+
+    .timeline__dot.is-accent {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .timeline__title {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      line-height: 1.05;
+      margin-bottom: 3px;
+    }
+
+    .timeline__note {
+      text-align: center;
+      margin-top: 18px;
+      color: var(--muted);
+      font-style: italic;
+      font-size: 0.95rem;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+    }
+
+    @media (max-width: 640px) {
+      .timeline::before {
+        left: 64px;
+      }
+
+      .timeline__item {
+        grid-template-columns: 54px 1fr;
+        gap: 0 20px;
+      }
+    }
+
+    /* FAQ */
+    .faq {
+      margin-top: 26px;
+      max-width: 860px;
+    }
+
+    .faq__item {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .faq__button {
+      width: 100%;
+      background: none;
+      border: none;
+      text-align: left;
+      padding: 22px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      cursor: pointer;
+      color: inherit;
+    }
+
+    .faq__question {
+      font-family: var(--serif);
+      font-size: 1.9rem;
+      line-height: 1.05;
+    }
+
+    .faq__icon {
+      flex: 0 0 auto;
+      width: 28px;
+      height: 28px;
+      border: 1px solid #baa996;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      transition: var(--transition);
+      font-size: 1rem;
+    }
+
+    .faq__item.is-open .faq__icon {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+      transform: rotate(45deg);
+    }
+
+    .faq__panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 260ms ease;
+    }
+
+    .faq__inner {
+      padding: 0 0 20px;
+      max-width: 70ch;
+    }
+
+    .faq__inner p + p {
+      margin-top: 12px;
+    }
+
+    /* CONTACT */
+    .contact {
+      display: grid;
+      gap: 24px;
+      align-items: start;
+      margin-top: 24px;
+    }
+
+    .contact__card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .contact__role {
+      display: inline-block;
+      margin-bottom: 10px;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+    }
+
+    .contact__name {
+      font-family: var(--serif);
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+
+    .contact__phone a {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .contact__note {
+      background: var(--surface);
+      border-left: 3px solid var(--accent);
+      padding: 22px;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.45rem;
+      line-height: 1.2;
+    }
+
+    @media (min-width: 860px) {
+      .contact {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* RSVP */
+    .rsvp__intro {
+      max-width: 680px;
+      margin: 0 auto 32px;
+      text-align: center;
+    }
+
+    .rsvp__intro h2 {
+      margin-bottom: 12px;
+    }
+
+    .rsvp__intro p {
+      color: rgba(255,255,255,0.76);
+    }
+
+    .rsvp__wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 28px;
+      padding: clamp(22px, 4vw, 34px);
+    }
+
+    .form__grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .form__row {
+      display: grid;
+      gap: 18px;
+    }
+
+    @media (min-width: 760px) {
+      .form__row {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: rgba(255,255,255,0.68);
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      min-height: 50px;
+      padding: 14px 16px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.04);
+      color: var(--white);
+      outline: none;
+      border-radius: 14px;
+      transition: var(--transition);
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 112px;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: rgba(255,255,255,0.34);
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      border-color: rgba(255,255,255,0.34);
+    }
+
+    .choice-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 18px;
+      min-height: 50px;
+      align-items: center;
+    }
+
+    .choice {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--white);
+      cursor: pointer;
+    }
+
+    .choice input {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 1px solid rgba(255,255,255,0.36);
+      border-radius: 999px;
+      position: relative;
+      background: transparent;
+      cursor: pointer;
+      margin: 0;
+    }
+
+    .choice input:checked {
+      border-color: var(--white);
+      background: var(--white);
+    }
+
+    .choice input:checked::after {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border-radius: 999px;
+      background: var(--dark);
+    }
+
+    .field.is-hidden {
+      display: none;
+    }
+
+    .form__submit {
+      margin-top: 8px;
+      width: 100%;
+    }
+
+    .form__status {
+      display: none;
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.06);
+      color: var(--white);
+      text-align: center;
+    }
+
+    /* FOOTER */
+    .footer {
+      background: #171311;
+      color: rgba(255,255,255,0.72);
+      text-align: center;
+      padding: 38px 16px;
+    }
+
+    .footer__names {
+      font-family: var(--serif);
+      font-style: italic;
+      color: var(--white);
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+
+    .footer__meta {
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    /* REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 600ms ease, transform 600ms ease;
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav__inner">
+      <a href="#hero" class="nav__brand">Andrea &amp; Filip</a>
+
+      <ul class="nav__links">
+        <li><a href="#story" data-i18n="nav.story">Náš příběh</a></li>
+        <li><a href="#info" data-i18n="nav.info">Kde a kdy</a></li>
+        <li><a href="#timeline" data-i18n="nav.timeline">Harmonogram</a></li>
+        <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
+        <li><a href="#rsvp" class="is-active" data-i18n="nav.rsvp">Potvrdit účast</a></li>
+      </ul>
+
+      <div class="nav__right">
+        <div class="lang-switch" aria-label="Přepínač jazyka">
+          <button class="lang-btn is-active" type="button" data-lang="cz">CZ</button>
+          <span class="muted">|</span>
+          <button class="lang-btn" type="button" data-lang="en">EN</button>
+        </div>
+
+        <button class="hamburger" type="button" aria-label="Menu" id="menuToggle">
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu__inner">
+      <a href="#story" data-i18n="nav.story">Náš příběh</a>
+      <a href="#info" data-i18n="nav.info">Kde a kdy</a>
+      <a href="#timeline" data-i18n="nav.timeline">Harmonogram</a>
+      <a href="#faq" data-i18n="nav.faq">FAQ</a>
+      <a href="#rsvp" data-i18n="nav.rsvp">Potvrdit účast</a>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero" id="hero">
+      <div class="hero__media">
+        <img src="images/hero.jpg" alt="Andrea a Filip" />
+      </div>
+      <div class="hero__overlay"></div>
+
+      <div class="hero__content">
+        <span class="hero__date" data-i18n="hero.date">středa 15. července 2026</span>
+        <h1 class="hero__names" data-i18n="hero.names">Andrea &amp; Filip</h1>
+        <p class="hero__subtitle" data-i18n="hero.subtitle">Budeme se brát</p>
+        <p class="hero__place" data-i18n="hero.place">Zámeček Dubí</p>
+        <a href="#rsvp" class="btn btn--light" data-i18n="hero.cta">Potvrdit účast</a>
+      </div>
+
+      <div class="hero__scroll">
+        <span data-i18n="hero.scroll">Scroll</span>
+        <div class="hero__scroll-line"></div>
+      </div>
+    </section>
+
+    <section class="section" id="story">
+      <div class="container">
+        <div class="story reveal">
+          <div class="story__content">
+            <span class="eyebrow" data-i18n="story.eyebrow">Náš příběh</span>
+            <h2 data-i18n="story.title">Jak to začalo</h2>
+
+            <blockquote class="story__quote" data-i18n="story.quote">
+              Každý kilometr nás přiblížil o trochu blíž k sobě.
+            </blockquote>
+
+            <div data-lang-block="cz">
+              <p>Seznámili jsme se před třemi lety ve fitku a brzy jsme zjistili, že nás nespojuje jen láska ke sportu, ale i k cestování a podobný pohled na život.</p>
+              <p>Naše společná cesta začala půlmaratonem v Polsku – prvním velkým krokem, který jsme udělali bok po boku. Od té doby spolu objevujeme svět, od Evropy až po Japonsko, a víme, že zdaleka nejsme na konci.</p>
+              <p>Žádost o ruku přišla symbolicky na Vyšehradě, po běhu zakončeném právě tam.</p>
+              <p>Těšíme se na všechny další kilometry a dobrodružství. Spolu.</p>
+              <p>A máme velkou radost, že ten nejdůležitější den můžeme sdílet právě s vámi.</p>
+            </div>
+
+            <div data-lang-block="en" hidden>
+              <p>We met three years ago at the gym and soon realised that what connects us is not only our love for sport, but also for travelling and a similar outlook on life.</p>
+              <p>Our journey together began with a half marathon in Poland, the first big step we took side by side. Since then, we have been discovering the world together, from Europe to Japan, and we know we are far from the finish line.</p>
+              <p>The proposal came symbolically at Vyšehrad, after a run that ended right there.</p>
+              <p>We look forward to all the next kilometres and adventures. Together.</p>
+              <p>And we are truly happy that we can share the most important day with all of you.</p>
+            </div>
+          </div>
+
+          <div class="story__media">
+            <div class="story__main">
+              <img src="images/beh.jpg" alt="Společný běh" />
+            </div>
+            <div class="story__small">
+              <img src="images/japonsko.jpg" alt="Japonsko" />
+            </div>
+            <div class="story__small">
+              <img src="images/vysehrad.jpg" alt="Vyšehrad" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="break reveal" aria-hidden="true">
+      <img src="images/venue-night.jpg" alt="Zámeček Dubí večer" />
+      <div class="break__overlay">
+        <p class="break__text" data-i18n="break.venue">Zámeček Dubí — 15. července 2026</p>
+      </div>
+    </section>
+
+    <section class="section section--surface" id="info">
+      <div class="container">
+        <div class="reveal">
+          <span class="eyebrow" data-i18n="info.eyebrow">Kde a kdy</span>
+          <h2 data-i18n="info.title">Vše, co potřebujete vědět</h2>
+
+          <div class="info-grid">
+            <article class="info-card">
+              <span class="info-card__icon icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 3l7 4v13H5V7l7-4z"/>
+                  <path d="M9 20V11h6v9"/>
+                  <path d="M10 7h4"/>
+                </svg>
+              </span>
+              <div class="info-card__label" data-i18n="cards.ceremony.label">Obřad</div>
+              <div class="info-card__title" data-i18n="cards.ceremony.title">Kostel Neposkvrněného početí Panny Marie</div>
+              <div class="info-card__text" data-i18n="cards.ceremony.text">Dubí · 13:00</div>
+            </article>
+
+            <article class="info-card">
+              <span class="info-card__icon icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M4 20V10l8-6 8 6v10"/>
+                  <path d="M9 20v-6h6v6"/>
+                </svg>
+              </span>
+              <div class="info-card__label" data-i18n="cards.reception.label">Oslava</div>
+              <div class="info-card__title" data-i18n="cards.reception.title">Zámeček Dubí</div>
+              <div class="info-card__text" data-i18n="cards.reception.text">Ruská 323/193, Dubí-Dubí, 417 01 Dubí</div>
+            </article>
+
+            <article class="info-card">
+              <span class="info-card__icon icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M4 15h16"/>
+                  <path d="M6 15V9h10l2 3v3"/>
+                  <circle cx="8" cy="17" r="1.5"/>
+                  <circle cx="16" cy="17" r="1.5"/>
+                </svg>
+              </span>
+              <div class="info-card__label" data-i18n="cards.transport.label">Doprava</div>
+              <div class="info-card__title" data-i18n="cards.transport.title">Autobus zajištěn</div>
+              <div class="info-card__text" data-i18n="cards.transport.text">Zámeček ↔ kostel i zpět</div>
+            </article>
+
+            <article class="info-card">
+              <span class="info-card__icon icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <rect x="5" y="4" width="14" height="16" rx="2"/>
+                  <path d="M9 8h3a3 3 0 010 6H9V8z"/>
+                </svg>
+              </span>
+              <div class="info-card__label" data-i18n="cards.parking.label">Parkování</div>
+              <div class="info-card__title" data-i18n="cards.parking.title">Parkoviště naproti zámečku</div>
+              <div class="info-card__text" data-i18n="cards.parking.text">Dostatek míst pro všechny</div>
+            </article>
+
+            <article class="info-card">
+              <span class="info-card__icon icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M4 13h16"/>
+                  <path d="M6 13V9h5a3 3 0 013 3v1"/>
+                  <path d="M5 18v-5"/>
+                  <path d="M19 18v-3a2 2 0 00-2-2h-3"/>
+                </svg>
+              </span>
+              <div class="info-card__label" data-i18n="cards.sleep.label">Ubytování</div>
+              <div class="info-card__title" data-i18n="cards.sleep.title">Přímo v areálu</div>
+              <div class="info-card__text" data-i18n="cards.sleep.text">Út 14:00 – Čt 11:00</div>
+            </article>
+
+            <article class="info-card">
+              <span class="info-card__icon icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 19c4-4 6-6.5 6-9a3 3 0 00-5.2-2.1L12 8.6l-.8-.7A3 3 0 006 10c0 2.5 2 5 6 9z"/>
+                </svg>
+              </span>
+              <div class="info-card__label" data-i18n="cards.dress.label">Dress code</div>
+              <div class="info-card__title" data-i18n="cards.dress.title">Volný, růžové tóny vítány</div>
+              <div class="info-card__text" data-i18n="cards.dress.text">Hlavně se cítit pohodlně</div>
+            </article>
+
+            <article class="info-card">
+              <span class="info-card__icon icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <rect x="4" y="6" width="16" height="12" rx="2"/>
+                  <path d="M5 8l7 5 7-5"/>
+                </svg>
+              </span>
+              <div class="info-card__label" data-i18n="cards.rsvp.label">RSVP deadline</div>
+              <div class="info-card__title" data-i18n="cards.rsvp.title">15. 5. 2026</div>
+              <div class="info-card__text">
+                <a href="#rsvp" style="border-bottom:1px solid var(--line)" data-i18n="cards.rsvp.text">Potvrdit účast →</a>
+              </div>
+            </article>
+
+            <article class="info-card">
+              <span class="info-card__icon icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M8 4v6a4 4 0 008 0V4"/>
+                  <path d="M10 4h4"/>
+                  <path d="M12 10v10"/>
+                  <path d="M9 20h6"/>
+                </svg>
+              </span>
+              <div class="info-card__label" data-i18n="cards.bar.label">Open bar</div>
+              <div class="info-card__title" data-i18n="cards.bar.title">Celý den i večer</div>
+              <div class="info-card__text" data-i18n="cards.bar.text">Pití je na nás</div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="maps">
+      <div class="container">
+        <div class="reveal">
+          <span class="eyebrow" data-i18n="maps.eyebrow">Místa</span>
+          <h2 data-i18n="maps.title">Kde nás najdete</h2>
+
+          <div class="locations">
+            <article class="location-card">
+              <div class="location-card__image">
+                <img src="images/svatba-kostel-interier.jpg" alt="Interiér kostela" />
+              </div>
+              <div class="location-card__body">
+                <span class="location-card__step" data-i18n="maps.church.step">Zastávka 01 — obřad · 13:00</span>
+                <h3 class="location-card__title" data-i18n="maps.church.title">Kostel Neposkvrněného početí Panny Marie</h3>
+                <p class="location-card__address" data-i18n="maps.church.address">Dubí</p>
+                <p class="location-card__desc" data-i18n="maps.church.desc">Zde si řekneme své ano. Autobus odjíždí ze Zámečku ve 12:45.</p>
+                <a
+                  class="btn btn--dark"
+                  href="https://www.google.com/maps/place/Kostel+Neposkvrn%C4%9Bn%C3%A9ho+po%C4%8Det%C3%AD+Panny+Marie/@50.6841099,13.7845391,17z/data=!3m1!4b1!4m6!3m5!1s0x47098d9224c4b6d1:0xaccf1f36adacbe71!8m2!3d50.6841065!4d13.787114!16s%2Fg%2F11bv6pr3y3?entry=ttu"
+                  target="_blank"
+                  rel="noopener"
+                  data-i18n="maps.button"
+                >Navigovat →</a>
+              </div>
+            </article>
+
+            <article class="location-card">
+              <div class="location-card__map">
+                <iframe
+                  title="Zámeček Dubí"
+                  loading="lazy"
+                  allowfullscreen
+                  referrerpolicy="no-referrer-when-downgrade"
+                  src="https://www.google.com/maps?q=Rusk%C3%A1%20323%2F193%2C%20417%2001%20Dub%C3%AD&z=16&output=embed">
+                </iframe>
+              </div>
+              <div class="location-card__body">
+                <span class="location-card__step" data-i18n="maps.venue.step">Zastávka 02 — oslava · od 14:45</span>
+                <h3 class="location-card__title" data-i18n="maps.venue.title">Zámeček Dubí</h3>
+                <p class="location-card__address" data-i18n="maps.venue.address">Ruská 323/193, Dubí-Dubí, 417 01 Dubí</p>
+                <p class="location-card__desc" data-i18n="maps.venue.desc">Místo, kde budeme slavit. Parkování je naproti areálu přes silnici.</p>
+                <a
+                  class="btn btn--dark"
+                  href="https://www.google.com/maps/search/?api=1&query=Rusk%C3%A1+323%2F193%2C+417+01+Dub%C3%AD"
+                  target="_blank"
+                  rel="noopener"
+                  data-i18n="maps.button"
+                >Navigovat →</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--surface" id="timeline">
+      <div class="container">
+        <div class="reveal">
+          <span class="eyebrow" data-i18n="timeline.eyebrow">Program dne</span>
+          <h2 data-i18n="timeline.title">Harmonogram</h2>
+
+          <div class="timeline">
+            <div class="timeline__item">
+              <div class="timeline__time">12:00–12:30</div>
+              <div class="timeline__content">
+                <span class="timeline__dot"></span>
+                <div class="timeline__title" data-i18n="timeline.item1">Příjezd hostů</div>
+              </div>
+            </div>
+
+            <div class="timeline__item">
+              <div class="timeline__time">12:45</div>
+              <div class="timeline__content">
+                <span class="timeline__dot"></span>
+                <div class="timeline__title" data-i18n="timeline.item2">Přesun do kostela</div>
+              </div>
+            </div>
+
+            <div class="timeline__item">
+              <div class="timeline__time">13:00</div>
+              <div class="timeline__content">
+                <span class="timeline__dot is-accent"></span>
+                <div class="timeline__title" data-i18n="timeline.item3">Svatební obřad v kostele</div>
+              </div>
+            </div>
+
+            <div class="timeline__item">
+              <div class="timeline__time">14:00</div>
+              <div class="timeline__content">
+                <span class="timeline__dot"></span>
+                <div class="timeline__title" data-i18n="timeline.item4">Společné focení před kostelem</div>
+              </div>
+            </div>
+
+            <div class="timeline__item">
+              <div class="timeline__time">14:30</div>
+              <div class="timeline__content">
+                <span class="timeline__dot"></span>
+                <div class="timeline__title" data-i18n="timeline.item5">Přesun na Zámeček Dubí</div>
+              </div>
+            </div>
+
+            <div class="timeline__item">
+              <div class="timeline__time">14:45</div>
+              <div class="timeline__content">
+                <span class="timeline__dot"></span>
+                <div class="timeline__title" data-i18n="timeline.item6">Slavnostní příchod + rozbití talíře</div>
+              </div>
+            </div>
+
+            <div class="timeline__item">
+              <div class="timeline__time">15:00</div>
+              <div class="timeline__content">
+                <span class="timeline__dot"></span>
+                <div class="timeline__title" data-i18n="timeline.item7">Společná polévka + raut</div>
+              </div>
+            </div>
+
+            <div class="timeline__item">
+              <div class="timeline__time">16:00</div>
+              <div class="timeline__content">
+                <span class="timeline__dot"></span>
+                <div class="timeline__title" data-i18n="timeline.item8">Focení menších skupinek</div>
+              </div>
+            </div>
+
+            <div class="timeline__item">
+              <div class="timeline__time">16:30</div>
+              <div class="timeline__content">
+                <span class="timeline__dot"></span>
+                <div class="timeline__title" data-i18n="timeline.item9">Novomanželské focení</div>
+              </div>
+            </div>
+
+            <div class="timeline__item">
+              <div class="timeline__time">17:30</div>
+              <div class="timeline__content">
+                <span class="timeline__dot"></span>
+                <div class="timeline__title" data-i18n="timeline.item10">Krájení dortu</div>
+              </div>
+            </div>
+
+            <div class="timeline__item">
+              <div class="timeline__time">18:00</div>
+              <div class="timeline__content">
+                <span class="timeline__dot"></span>
+                <div class="timeline__title" data-i18n="timeline.item11">Hod kyticí</div>
+              </div>
+            </div>
+
+            <div class="timeline__item">
+              <div class="timeline__time">18:30</div>
+              <div class="timeline__content">
+                <span class="timeline__dot is-accent"></span>
+                <div class="timeline__title" data-i18n="timeline.item12">První tanec</div>
+              </div>
+            </div>
+
+            <div class="timeline__item">
+              <div class="timeline__time">19:00–21:30</div>
+              <div class="timeline__content">
+                <span class="timeline__dot"></span>
+                <div class="timeline__title" data-i18n="timeline.item13">Zábava, hry, tanec</div>
+              </div>
+            </div>
+
+            <div class="timeline__item">
+              <div class="timeline__time">21:30</div>
+              <div class="timeline__content">
+                <span class="timeline__dot"></span>
+                <div class="timeline__title" data-i18n="timeline.item14">Prskavky</div>
+              </div>
+            </div>
+
+            <div class="timeline__item">
+              <div class="timeline__time">22:00</div>
+              <div class="timeline__content">
+                <span class="timeline__dot"></span>
+                <div class="timeline__title" data-i18n="timeline.item15">Afterparty</div>
+              </div>
+            </div>
+
+            <p class="timeline__note" data-i18n="timeline.note">
+              Uvedené časy jsou orientační a mohou se během dne lehce měnit.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="break reveal" aria-hidden="true">
+      <img src="images/oslava.jpg" alt="Oslava" />
+      <div class="break__overlay">
+        <p class="break__text" data-i18n="break.celebrate">Společně náš den oslavíme!</p>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="reveal">
+          <span class="eyebrow" data-i18n="faq.eyebrow">Otázky a odpovědi</span>
+          <h2 data-i18n="faq.title">Nejčastější dotazy</h2>
+
+          <div class="faq">
+            <div class="faq__item">
+              <button class="faq__button" type="button">
+                <span class="faq__question" data-i18n="faq.q1">Dress code & barvy</span>
+                <span class="faq__icon">+</span>
+              </button>
+              <div class="faq__panel">
+                <div class="faq__inner">
+                  <div data-lang-block="cz">
+                    <p>Naše svatba se ponese v tónech růžové.</p>
+                    <p>Pokud se budete chtít barevně sladit, budeme moc rádi – není to však povinnost. Hlavní je, abyste se cítili pohodlně a sami sebou.</p>
+                  </div>
+                  <div data-lang-block="en" hidden>
+                    <p>Our wedding will be styled in shades of pink.</p>
+                    <p>If you would like to match the colour palette, we will be happy, but it is absolutely not required. The most important thing is that you feel comfortable and like yourself.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq__item">
+              <button class="faq__button" type="button">
+                <span class="faq__question" data-i18n="faq.q2">Doprava na obřad a zpět</span>
+                <span class="faq__icon">+</span>
+              </button>
+              <div class="faq__panel">
+                <div class="faq__inner">
+                  <div data-lang-block="cz">
+                    <p>Mezi Zámečkem Dubí a kostelem bude zajištěna hromadná doprava. Pro všechny svatebčany bude přistaven autobus, který zajistí společný přesun tam i zpět.</p>
+                    <p><strong>směr do kostela:</strong> odjezd ve 12:45<br><strong>směr zpět od kostela:</strong> odjezd ve 14:30</p>
+                  </div>
+                  <div data-lang-block="en" hidden>
+                    <p>There will be shared transport between Zámeček Dubí and the church. A bus will be available for all wedding guests for transport there and back.</p>
+                    <p><strong>to the church:</strong> departure at 12:45<br><strong>back from the church:</strong> departure at 14:30</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq__item">
+              <button class="faq__button" type="button">
+                <span class="faq__question" data-i18n="faq.q3">Ubytování</span>
+                <span class="faq__icon">+</span>
+              </button>
+              <div class="faq__panel">
+                <div class="faq__inner">
+                  <div data-lang-block="cz">
+                    <p>Ubytování je možné přímo v areálu Zámečku Dubí, kde by měla být kapacita pro všechny hosty dostatečná. Jedná se o pokoje se sdílenou koupelnou na patře.</p>
+                    <p>Pokud byste preferovali větší soukromí, doporučujeme zajistit si vlastní ubytování v okolí.</p>
+                    <p>Ubytování v areálu je k dispozici od <strong>úterý 14:00</strong> do <strong>čtvrtka 11:00</strong>. Prosíme o potvrzení zájmu o ubytování v dotazníku.</p>
+                    <p>Ve středu dopoledne vám s ubytováním ráda pomůže koordinátorka <strong>Martina Magová</strong>. Pokud byste ji nezastihli, můžete ji kontaktovat na telefonním čísle <strong>720 547 642</strong>.</p>
+                  </div>
+                  <div data-lang-block="en" hidden>
+                    <p>Accommodation is available directly at Zámeček Dubí and the capacity should be sufficient for all guests. The rooms have shared bathrooms on the floor.</p>
+                    <p>If you prefer more privacy, we recommend arranging your own accommodation nearby.</p>
+                    <p>Accommodation at the venue is available from <strong>Tuesday 2:00 PM</strong> until <strong>Thursday 11:00 AM</strong>. Please confirm your interest in the RSVP form.</p>
+                    <p>On Wednesday morning, coordinator <strong>Martina Magová</strong> will be happy to help you. If you cannot reach her, call <strong>+420 720 547 642</strong>.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq__item">
+              <button class="faq__button" type="button">
+                <span class="faq__question" data-i18n="faq.q4">Parkování</span>
+                <span class="faq__icon">+</span>
+              </button>
+              <div class="faq__panel">
+                <div class="faq__inner">
+                  <div data-lang-block="cz">
+                    <p>Parkování je možné přímo u areálu Zámečku Dubí, kde je k dispozici omezená kapacita, přibližně 15 míst, primárně určená pro nejbližší rodinu.</p>
+                    <p>Pro ostatní hosty je k dispozici parkoviště naproti zámečku přes silnici, kde je dostatek míst pro všechny. Prosíme o využití tohoto parkoviště.</p>
+                  </div>
+                  <div data-lang-block="en" hidden>
+                    <p>Parking is available directly at Zámeček Dubí, where there is limited capacity, approximately 15 spaces, primarily intended for immediate family.</p>
+                    <p>For all other guests, there is a parking area across the road from the venue with enough spaces for everyone. Please use this parking area.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq__item">
+              <button class="faq__button" type="button">
+                <span class="faq__question" data-i18n="faq.q5">Děti na svatbě</span>
+                <span class="faq__icon">+</span>
+              </button>
+              <div class="faq__panel">
+                <div class="faq__inner">
+                  <div data-lang-block="cz">
+                    <p>Naši svatbu jsme se rozhodli pojmout jako oslavu pro dospělé. Prosíme vás proto, abyste tentokrát nechali své ratolesti doma a přišli si den užít, zatancovat si a pobavit se bez starostí.</p>
+                    <p>Děkujeme za pochopení a těšíme se, že si společně užijeme krásný den.</p>
+                  </div>
+                  <div data-lang-block="en" hidden>
+                    <p>We have decided to celebrate our wedding as an adults-only event. We kindly ask you to leave your little ones at home this time and come enjoy the day, dance and celebrate carefree.</p>
+                    <p>Thank you for understanding. We are looking forward to sharing a beautiful day together.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq__item">
+              <button class="faq__button" type="button">
+                <span class="faq__question" data-i18n="faq.q6">Dary</span>
+                <span class="faq__icon">+</span>
+              </button>
+              <div class="faq__panel">
+                <div class="faq__inner">
+                  <div data-lang-block="cz">
+                    <p>Největším darem pro nás je, že s námi budete sdílet tento den.</p>
+                    <p>Pokud byste nás přesto chtěli obdarovat, nejvíce oceníme finanční příspěvek, který využijeme na společnou budoucnost a svatební cestu.</p>
+                  </div>
+                  <div data-lang-block="en" hidden>
+                    <p>The greatest gift for us is that you will share this day with us.</p>
+                    <p>If you would still like to give us something, we would most appreciate a financial contribution that we will use for our future together and our honeymoon.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq__item">
+              <button class="faq__button" type="button">
+                <span class="faq__question" data-i18n="faq.q7">Open bar — bude?</span>
+                <span class="faq__icon">+</span>
+              </button>
+              <div class="faq__panel">
+                <div class="faq__inner">
+                  <div data-lang-block="cz">
+                    <p><strong>Ano.</strong> Veškeré pití je po celý den i večer na nás, takže si s placením nemusíte dělat žádné starosti.</p>
+                    <p>Budeme ale rádi, když nám dáte vědět, co rádi pijete, ať máme všeho dostatek a každý si přijde na své.</p>
+                  </div>
+                  <div data-lang-block="en" hidden>
+                    <p><strong>Yes.</strong> All drinks throughout the day and evening are on us, so you do not need to worry about paying for anything.</p>
+                    <p>We would, however, appreciate it if you let us know what you like to drink so we can prepare enough for everyone.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="reveal">
+          <span class="eyebrow" data-i18n="contact.eyebrow">Kontakt</span>
+          <h2 data-i18n="contact.title">Máte otázku?</h2>
+
+          <div class="contact">
+            <div class="contact__card">
+              <span class="contact__role" data-i18n="contact.role">Koordinátorka</span>
+              <div class="contact__name">Martina Magová</div>
+              <p class="contact__phone">
+                <a href="tel:+420720547642">+420 720 547 642</a>
+              </p>
+            </div>
+
+            <div class="contact__note" data-i18n="contact.note">
+              V den svatby prosím nekontaktujte nevěstu.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--dark" id="rsvp">
+      <div class="container">
+        <div class="rsvp__intro reveal">
+          <span class="eyebrow" data-i18n="rsvp.eyebrow">Formulář</span>
+          <h2 data-i18n="rsvp.title">Potvrďte svou účast</h2>
+          <p data-i18n="rsvp.deadline">Prosíme o potvrzení účasti do 15. 5. 2026.</p>
+        </div>
+
+        <div class="rsvp__wrap reveal">
+          <form
+            id="rsvpForm"
+            action="https://formspree.io/f/xjgjgrwz"
+            method="POST"
+            novalidate
+          >
+            <div class="form__grid">
+              <div class="field">
+                <label for="name" data-i18n="form.name">Jméno a příjmení *</label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  data-placeholder-cz="Jana Nováková"
+                  data-placeholder-en="Jane Smith"
+                  placeholder="Jana Nováková"
+                />
+              </div>
+
+              <div class="field">
+                <label data-i18n="form.attending">Zúčastníte se? *</label>
+                <div class="choice-group">
+                  <label class="choice">
+                    <input type="radio" name="attending" value="yes" required />
+                    <span data-i18n="form.yesComing">Ano, přijdu</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="attending" value="no" />
+                    <span data-i18n="form.noComing">Bohužel nepřijdu</span>
+                  </label>
+                </div>
+              </div>
+
+              <div id="attendanceFields">
+                <div class="form__row">
+                  <div class="field">
+                    <label data-i18n="form.guest">Přivedete doprovod?</label>
+                    <div class="choice-group">
+                      <label class="choice">
+                        <input type="radio" name="guest" value="yes" />
+                        <span data-i18n="common.yes">Ano</span>
+                      </label>
+                      <label class="choice">
+                        <input type="radio" name="guest" value="no" />
+                        <span data-i18n="common.no">Ne</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="field is-hidden" id="guestNameField">
+                    <label for="guest_name" data-i18n="form.guestName">Jméno doprovodu</label>
+                    <input
+                      id="guest_name"
+                      name="guest_name"
+                      type="text"
+                      data-placeholder-cz="Jméno a příjmení"
+                      data-placeholder-en="Full name"
+                      placeholder="Jméno a příjmení"
+                    />
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label data-i18n="form.accommodation">Využijete ubytování v areálu?</label>
+                  <div class="choice-group">
+                    <label class="choice">
+                      <input type="radio" name="accommodation" value="yes" />
+                      <span data-i18n="common.yes">Ano</span>
+                    </label>
+                    <label class="choice">
+                      <input type="radio" name="accommodation" value="no" />
+                      <span data-i18n="common.no">Ne</span>
+                    </label>
+                    <label class="choice">
+                      <input type="radio" name="accommodation" value="maybe" />
+                      <span data-i18n="form.notSure">Ještě nevím</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label data-i18n="form.bus">Využijete svatební autobus?</label>
+                  <div class="choice-group">
+                    <label class="choice">
+                      <input type="radio" name="bus" value="yes" />
+                      <span data-i18n="common.yes">Ano</span>
+                    </label>
+                    <label class="choice">
+                      <input type="radio" name="bus" value="no" />
+                      <span data-i18n="common.no">Ne</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="allergies" data-i18n="form.allergies">Potravinové alergie nebo omezení stravy</label>
+                  <input
+                    id="allergies"
+                    name="allergies"
+                    type="text"
+                    data-placeholder-cz="Např. bezlepková dieta, vegetarián…"
+                    data-placeholder-en="E.g. gluten-free, vegetarian…"
+                    placeholder="Např. bezlepková dieta, vegetarián…"
+                  />
+                </div>
+
+                <div class="field">
+                  <label for="drinks" data-i18n="form.drinks">Co rádi pijete?</label>
+                  <input
+                    id="drinks"
+                    name="drinks"
+                    type="text"
+                    data-placeholder-cz="Pivo, víno, prosecco, nealkoholické…"
+                    data-placeholder-en="Beer, wine, prosecco, soft drinks…"
+                    placeholder="Pivo, víno, prosecco, nealkoholické…"
+                  />
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="note" data-i18n="form.note">Vzkaz pro nás (volitelné)</label>
+                <textarea
+                  id="note"
+                  name="note"
+                  data-placeholder-cz="Cokoliv nám chcete říct…"
+                  data-placeholder-en="Anything you'd like to tell us…"
+                  placeholder="Cokoliv nám chcete říct…"
+                ></textarea>
+              </div>
+
+              <button class="btn btn--solid form__submit" type="submit" data-i18n="form.submit">
+                Odeslat odpověď
+              </button>
+            </div>
+          </form>
+
+          <div class="form__status" id="formStatus"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__names">Andrea &amp; Filip</div>
+    <div class="footer__meta" data-i18n="footer.meta">15. 7. 2026 · Zámeček Dubí</div>
+  </footer>
+
+  <script>
+    const i18n = {
+      cz: {
+        "nav.story": "Náš příběh",
+        "nav.info": "Kde a kdy",
+        "nav.timeline": "Harmonogram",
+        "nav.faq": "FAQ",
+        "nav.rsvp": "Potvrdit účast",
+
+        "hero.date": "středa 15. července 2026",
+        "hero.names": "Andrea & Filip",
+        "hero.subtitle": "Budeme se brát",
+        "hero.place": "Zámeček Dubí",
+        "hero.cta": "Potvrdit účast",
+        "hero.scroll": "Scroll",
+
+        "story.eyebrow": "Náš příběh",
+        "story.title": "Jak to začalo",
+        "story.quote": "Každý kilometr nás přiblížil o trochu blíž k sobě.",
+
+        "break.venue": "Zámeček Dubí — 15. července 2026",
+        "break.celebrate": "Společně náš den oslavíme!",
+
+        "info.eyebrow": "Kde a kdy",
+        "info.title": "Vše, co potřebujete vědět",
+
+        "cards.ceremony.label": "Obřad",
+        "cards.ceremony.title": "Kostel Neposkvrněného početí Panny Marie",
+        "cards.ceremony.text": "Dubí · 13:00",
+
+        "cards.reception.label": "Oslava",
+        "cards.reception.title": "Zámeček Dubí",
+        "cards.reception.text": "Ruská 323/193, Dubí-Dubí, 417 01 Dubí",
+
+        "cards.transport.label": "Doprava",
+        "cards.transport.title": "Autobus zajištěn",
+        "cards.transport.text": "Zámeček ↔ kostel i zpět",
+
+        "cards.parking.label": "Parkování",
+        "cards.parking.title": "Parkoviště naproti zámečku",
+        "cards.parking.text": "Dostatek míst pro všechny",
+
+        "cards.sleep.label": "Ubytování",
+        "cards.sleep.title": "Přímo v areálu",
+        "cards.sleep.text": "Út 14:00 – Čt 11:00",
+
+        "cards.dress.label": "Dress code",
+        "cards.dress.title": "Volný, růžové tóny vítány",
+        "cards.dress.text": "Hlavně se cítit pohodlně",
+
+        "cards.rsvp.label": "RSVP deadline",
+        "cards.rsvp.title": "15. 5. 2026",
+        "cards.rsvp.text": "Potvrdit účast →",
+
+        "cards.bar.label": "Open bar",
+        "cards.bar.title": "Celý den i večer",
+        "cards.bar.text": "Pití je na nás",
+
+        "maps.eyebrow": "Místa",
+        "maps.title": "Kde nás najdete",
+        "maps.button": "Navigovat →",
+
+        "maps.church.step": "Zastávka 01 — obřad · 13:00",
+        "maps.church.title": "Kostel Neposkvrněného početí Panny Marie",
+        "maps.church.address": "Dubí",
+        "maps.church.desc": "Zde si řekneme své ano. Autobus odjíždí ze Zámečku ve 12:45.",
+
+        "maps.venue.step": "Zastávka 02 — oslava · od 14:45",
+        "maps.venue.title": "Zámeček Dubí",
+        "maps.venue.address": "Ruská 323/193, Dubí-Dubí, 417 01 Dubí",
+        "maps.venue.desc": "Místo, kde budeme slavit. Parkování je naproti areálu přes silnici.",
+
+        "timeline.eyebrow": "Program dne",
+        "timeline.title": "Harmonogram",
+        "timeline.item1": "Příjezd hostů",
+        "timeline.item2": "Přesun do kostela",
+        "timeline.item3": "Svatební obřad v kostele",
+        "timeline.item4": "Společné focení před kostelem",
+        "timeline.item5": "Přesun na Zámeček Dubí",
+        "timeline.item6": "Slavnostní příchod + rozbití talíře",
+        "timeline.item7": "Společná polévka + raut",
+        "timeline.item8": "Focení menších skupinek",
+        "timeline.item9": "Novomanželské focení",
+        "timeline.item10": "Krájení dortu",
+        "timeline.item11": "Hod kyticí",
+        "timeline.item12": "První tanec",
+        "timeline.item13": "Zábava, hry, tanec",
+        "timeline.item14": "Prskavky",
+        "timeline.item15": "Afterparty",
+        "timeline.note": "Uvedené časy jsou orientační a mohou se během dne lehce měnit.",
+
+        "faq.eyebrow": "Otázky a odpovědi",
+        "faq.title": "Nejčastější dotazy",
+        "faq.q1": "Dress code & barvy",
+        "faq.q2": "Doprava na obřad a zpět",
+        "faq.q3": "Ubytování",
+        "faq.q4": "Parkování",
+        "faq.q5": "Děti na svatbě",
+        "faq.q6": "Dary",
+        "faq.q7": "Open bar — bude?",
+
+        "contact.eyebrow": "Kontakt",
+        "contact.title": "Máte otázku?",
+        "contact.role": "Koordinátorka",
+        "contact.note": "V den svatby prosím nekontaktujte nevěstu.",
+
+        "rsvp.eyebrow": "Formulář",
+        "rsvp.title": "Potvrďte svou účast",
+        "rsvp.deadline": "Prosíme o potvrzení účasti do 15. 5. 2026.",
+
+        "form.name": "Jméno a příjmení *",
+        "form.attending": "Zúčastníte se? *",
+        "form.yesComing": "Ano, přijdu",
+        "form.noComing": "Bohužel nepřijdu",
+        "form.guest": "Přivedete doprovod?",
+        "form.guestName": "Jméno doprovodu",
+        "form.accommodation": "Využijete ubytování v areálu?",
+        "form.bus": "Využijete svatební autobus?",
+        "form.allergies": "Potravinové alergie nebo omezení stravy",
+        "form.drinks": "Co rádi pijete?",
+        "form.note": "Vzkaz pro nás (volitelné)",
+        "form.submit": "Odeslat odpověď",
+        "form.notSure": "Ještě nevím",
+        "form.success": "Děkujeme, vaše odpověď byla odeslána.",
+        "form.error": "Něco se nepovedlo. Zkuste to prosím znovu.",
+        "form.mock": "Formulář je připravený. Stačí doplnit Formspree endpoint.",
+        "common.yes": "Ano",
+        "common.no": "Ne",
+
+        "footer.meta": "15. 7. 2026 · Zámeček Dubí"
+      },
+
+      en: {
+        "nav.story": "Our story",
+        "nav.info": "When & where",
+        "nav.timeline": "Timeline",
+        "nav.faq": "FAQ",
+        "nav.rsvp": "RSVP",
+
+        "hero.date": "Wednesday, July 15, 2026",
+        "hero.names": "Andrea & Filip",
+        "hero.subtitle": "We’re getting married",
+        "hero.place": "Zámeček Dubí",
+        "hero.cta": "RSVP",
+        "hero.scroll": "Scroll",
+
+        "story.eyebrow": "Our story",
+        "story.title": "How it all began",
+        "story.quote": "Every kilometre brought us a little closer to each other.",
+
+        "break.venue": "Zámeček Dubí — July 15, 2026",
+        "break.celebrate": "Let’s celebrate together",
+
+        "info.eyebrow": "When & where",
+        "info.title": "Everything you need to know",
+
+        "cards.ceremony.label": "Ceremony",
+        "cards.ceremony.title": "Church of the Immaculate Conception of the Virgin Mary",
+        "cards.ceremony.text": "Dubí · 1:00 PM",
+
+        "cards.reception.label": "Reception",
+        "cards.reception.title": "Zámeček Dubí",
+        "cards.reception.text": "Ruská 323/193, Dubí-Dubí, 417 01 Dubí",
+
+        "cards.transport.label": "Transport",
+        "cards.transport.title": "Bus provided",
+        "cards.transport.text": "Venue ↔ church and back",
+
+        "cards.parking.label": "Parking",
+        "cards.parking.title": "Parking area across the road",
+        "cards.parking.text": "Plenty of spaces for everyone",
+
+        "cards.sleep.label": "Accommodation",
+        "cards.sleep.title": "On site at the venue",
+        "cards.sleep.text": "Tue 2:00 PM – Thu 11:00 AM",
+
+        "cards.dress.label": "Dress code",
+        "cards.dress.title": "Relaxed, pink tones welcome",
+        "cards.dress.text": "Most importantly, feel comfortable",
+
+        "cards.rsvp.label": "RSVP deadline",
+        "cards.rsvp.title": "May 15, 2026",
+        "cards.rsvp.text": "Confirm attendance →",
+
+        "cards.bar.label": "Open bar",
+        "cards.bar.title": "All day and evening",
+        "cards.bar.text": "Drinks are on us",
+
+        "maps.eyebrow": "Locations",
+        "maps.title": "Where to find us",
+        "maps.button": "Navigate →",
+
+        "maps.church.step": "Stop 01 — ceremony · 1:00 PM",
+        "maps.church.title": "Church of the Immaculate Conception of the Virgin Mary",
+        "maps.church.address": "Dubí",
+        "maps.church.desc": "This is where we will say our vows. The bus leaves the venue at 12:45.",
+
+        "maps.venue.step": "Stop 02 — reception · from 2:45 PM",
+        "maps.venue.title": "Zámeček Dubí",
+        "maps.venue.address": "Ruská 323/193, Dubí-Dubí, 417 01 Dubí",
+        "maps.venue.desc": "This is where we celebrate. Parking is available across the road from the venue.",
+
+        "timeline.eyebrow": "Day programme",
+        "timeline.title": "Timeline",
+        "timeline.item1": "Guest arrival",
+        "timeline.item2": "Transfer to the church",
+        "timeline.item3": "Wedding ceremony in the church",
+        "timeline.item4": "Group photos in front of the church",
+        "timeline.item5": "Transfer to Zámeček Dubí",
+        "timeline.item6": "Grand arrival + plate-breaking tradition",
+        "timeline.item7": "Soup + reception buffet",
+        "timeline.item8": "Smaller group photos",
+        "timeline.item9": "Newlywed photo session",
+        "timeline.item10": "Cake cutting",
+        "timeline.item11": "Bouquet toss",
+        "timeline.item12": "First dance",
+        "timeline.item13": "Party, games, dancing",
+        "timeline.item14": "Sparklers",
+        "timeline.item15": "Afterparty",
+        "timeline.note": "The schedule is approximate and may slightly change during the day.",
+
+        "faq.eyebrow": "Questions & answers",
+        "faq.title": "Frequently asked questions",
+        "faq.q1": "Dress code & colours",
+        "faq.q2": "Transport to and from the ceremony",
+        "faq.q3": "Accommodation",
+        "faq.q4": "Parking",
+        "faq.q5": "Children at the wedding",
+        "faq.q6": "Gifts",
+        "faq.q7": "Open bar — yes?",
+
+        "contact.eyebrow": "Contact",
+        "contact.title": "Do you have a question?",
+        "contact.role": "Coordinator",
+        "contact.note": "Please do not contact the bride on the wedding day.",
+
+        "rsvp.eyebrow": "Form",
+        "rsvp.title": "Confirm your attendance",
+        "rsvp.deadline": "Please confirm your attendance by May 15, 2026.",
+
+        "form.name": "Full name *",
+        "form.attending": "Will you attend? *",
+        "form.yesComing": "Yes, I’ll be there",
+        "form.noComing": "Unfortunately, I can’t make it",
+        "form.guest": "Will you bring a guest?",
+        "form.guestName": "Guest name",
+        "form.accommodation": "Will you use accommodation at the venue?",
+        "form.bus": "Will you use the wedding bus?",
+        "form.allergies": "Food allergies or dietary restrictions",
+        "form.drinks": "What do you like to drink?",
+        "form.note": "A message for us (optional)",
+        "form.submit": "Send RSVP",
+        "form.notSure": "Not sure yet",
+        "form.success": "Thank you, your response has been sent.",
+        "form.error": "Something went wrong. Please try again.",
+        "form.mock": "The form is ready. Just add your Formspree endpoint.",
+        "common.yes": "Yes",
+        "common.no": "No",
+
+        "footer.meta": "July 15, 2026 · Zámeček Dubí"
+      }
+    };
+
+    let currentLang = "cz";
+
+    const langButtons = document.querySelectorAll(".lang-btn");
+    const i18nNodes = document.querySelectorAll("[data-i18n]");
+    const langBlocks = document.querySelectorAll("[data-lang-block]");
+    const placeholderNodes = document.querySelectorAll("[data-placeholder-cz]");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const menuToggle = document.getElementById("menuToggle");
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang === "cz" ? "cs" : "en";
+
+      i18nNodes.forEach((node) => {
+        const key = node.dataset.i18n;
+        if (i18n[lang][key]) {
+          node.textContent = i18n[lang][key];
+        }
+      });
+
+      placeholderNodes.forEach((node) => {
+        node.placeholder =
+          lang === "cz"
+            ? node.dataset.placeholderCz
+            : node.dataset.placeholderEn;
+      });
+
+      langBlocks.forEach((block) => {
+        block.hidden = block.dataset.langBlock !== lang;
+      });
+
+      langButtons.forEach((btn) => {
+        btn.classList.toggle("is-active", btn.dataset.lang === lang);
+      });
+    }
+
+    langButtons.forEach((btn) => {
+      btn.addEventListener("click", () => setLanguage(btn.dataset.lang));
+    });
+
+    menuToggle.addEventListener("click", () => {
+      mobileMenu.classList.toggle("is-open");
+    });
+
+    mobileMenu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => mobileMenu.classList.remove("is-open"));
+    });
+
+    document.querySelectorAll(".faq__button").forEach((button) => {
+      button.addEventListener("click", () => {
+        const item = button.closest(".faq__item");
+        const panel = item.querySelector(".faq__panel");
+        const isOpen = item.classList.contains("is-open");
+
+        document.querySelectorAll(".faq__item").forEach((other) => {
+          other.classList.remove("is-open");
+          other.querySelector(".faq__panel").style.maxHeight = null;
+        });
+
+        if (!isOpen) {
+          item.classList.add("is-open");
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        }
+      });
+    });
+
+    const attendingInputs = document.querySelectorAll('input[name="attending"]');
+    const guestInputs = document.querySelectorAll('input[name="guest"]');
+    const attendanceFields = document.getElementById("attendanceFields");
+    const guestNameField = document.getElementById("guestNameField");
+
+    function updateAttendingState() {
+      const selected = document.querySelector('input[name="attending"]:checked')?.value;
+      if (selected === "no") {
+        attendanceFields.style.display = "none";
+        guestNameField.classList.add("is-hidden");
+      } else {
+        attendanceFields.style.display = "block";
+      }
+    }
+
+    function updateGuestState() {
+      const selected = document.querySelector('input[name="guest"]:checked')?.value;
+      guestNameField.classList.toggle("is-hidden", selected !== "yes");
+    }
+
+    attendingInputs.forEach((input) => input.addEventListener("change", updateAttendingState));
+    guestInputs.forEach((input) => input.addEventListener("change", updateGuestState));
+
+    const form = document.getElementById("rsvpForm");
+    const formStatus = document.getElementById("formStatus");
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const action = form.getAttribute("action");
+      const submitBtn = form.querySelector(".form__submit");
+      const originalLabel = submitBtn.textContent;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = currentLang === "cz" ? "Odesílám…" : "Sending…";
+
+      if (action.includes("YOUR_FORMSPREE_ENDPOINT_HERE")) {
+        formStatus.style.display = "block";
+        formStatus.textContent = i18n[currentLang]["form.mock"];
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalLabel;
+        return;
+      }
+
+      try {
+        const response = await fetch(action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: {
+            Accept: "application/json"
+          }
+        });
+
+        if (response.ok) {
+          form.reset();
+          attendanceFields.style.display = "block";
+          guestNameField.classList.add("is-hidden");
+          formStatus.style.display = "block";
+          formStatus.textContent = i18n[currentLang]["form.success"];
+        } else {
+          throw new Error("Submission failed");
+        }
+      } catch (error) {
+        formStatus.style.display = "block";
+        formStatus.textContent = i18n[currentLang]["form.error"];
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalLabel;
+      }
+    });
+
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    document.querySelectorAll(".reveal").forEach((item) => revealObserver.observe(item));
+
+    setLanguage("cz");
+  </script>
+</body>
+</html>
